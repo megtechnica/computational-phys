@@ -5,45 +5,27 @@ class PythagoreanTheorem:
         self.x_value = x_value
         self.y_value = y_value
         self.r_value = r_value
-    def find_y(self, x_value, r_value):     # If we got an x and an r value, but no y
-        PythagoreanTheorem.x_value = self.x_value
-        PythagoreanTheorem.r_value = self.r_value
-        PythagoreanTheorem.y_value = sqrt(r_value**2 - x_value**2)
+    def find_y(self, x_value, r_value):     # If we got an x and an r value, but no y        
+        self.y_value = sqrt(self.r_value**2 - self.x_value**2)
         return y_value
     def find_x(self, y_value, r_value):
-        PythagoreanTheorem.y_value = self.y_value
-        PythagoreanTheorem.r_value = self.r_value
-        PythagoreanTheorem.x_value = sqrt(r_value**2 - y_value**2)
+        self.x_value = sqrt(self.r_value**2 - self.y_value**2)
         return x_value
     def find_r(self, x_value, y_value):
-        PythagoreanTheorem.x_value = self.x_value
-        PythagoreanTheorem.y_value = self.y_value
-        PythagoreanTheorem.r_value = sqrt(x_value**2 + y_value**2)
+        self.r_value = sqrt(self.x_value**2 + self.y_value**2)
         return r_value
     def __str___(self):
         print("x value is {},\ny value is {},\nand r value is {}.".format(x_value, y_value, r_value))    
 
-class Convert_Cartesian_to_Polar:
-    def __init__(self, x_value, y_value):
-        self.x_value = x_value
-        self.y_value = y_value
-    def polar_conversion_calculator(self, x_value, y_value):
-        theta = atan(self.y_value/self.x_value)
-        theta = degrees(theta)      # atan() returns radians, converting to degrees
-        return theta
-    def __str__(self):
-        print("The value of theta is {} in degrees.".format(theta))
+def polar_conversion_calculator(x_value, y_value):
+    theta = atan(y_value/x_value)
+    theta = degrees(theta)      # atan() returns radians, converting to degrees
+    return theta
 
-class Convert_Polar_to_Cartesian:
-    def __init__(self, r_value, theta):
-        self.r_value = r_value
-        self.theta = theta
-    def cartesian_conversion_calcluator(self, r_value, theta):
-        Convert_Polar_to_Cartesian.r_value = self.r_value
-        Convert_Polar_to_Cartesian.theta = self.theta
-        x = r_value * cos(theta)
-        y = r_value * sin(theta)
-        return x,y
+def cartesian_conversion_calcluator(r_value, theta):
+    x = r_value * cos(theta)
+    y = r_value * sin(theta)
+    return x,y
 
 menu = "Convert cartesian coordinates to polar coordinates\n" \
        "or polar coordinates to cartesian coordinates.\n\n" \
@@ -64,14 +46,13 @@ while decision.upper() != 'Q':
                 x_value = float(input("Input the length of leg x: "))
                 y_value = float(input("Input the length of leg y: "))
                 r_value = PythagoreanTheorem.find_r(x_value, y_value)
-                theta = Convert_Cartesian_to_Polar.polar_conversion_calculator(x_value, y_value)
-                polar_coordinates = (r_value, theta)
+                theta = polar_conversion_calculator(x_value, y_value)
                 complete = True
             elif formula.lower() == 'y':
                 x_value = float(input("Input the length of leg x: "))
                 r_value = float(input("Input the length of the hypotneuse: "))
                 y_value = PythagoreanTheorem.find_y(x_value, r_value)
-                theta = Convert_Cartesian_to_Polar.polar_conversion_calculator(x_value, y_value)
+                theta = polar_conversion_calculator(x_value, y_value)
                 complete = True
             elif formula.lower() == 'x':
                 y_value = float(input("Input the length of leg y: "))
